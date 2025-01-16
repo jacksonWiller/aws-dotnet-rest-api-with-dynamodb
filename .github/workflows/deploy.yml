@@ -27,13 +27,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-        
-      - name: Change to Lambda directory
-        run: cd src/DotNetServerless.Lambda
-        
+
       - name: Npm install
         run: npm install
 
+      - name: Change to Lambda directory
+        run: cd src/DotNetServerless.Lambda
+        
       - name: Deploy to Production
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: serverless/github-action@master
