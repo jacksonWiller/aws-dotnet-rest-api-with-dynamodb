@@ -27,6 +27,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+        
+      - name: Change to Lambda directory
+        run: cd src/DotNetServerless.Lambda
+        
       - name: Npm install
         run: npm install
 
@@ -35,6 +39,7 @@ jobs:
         uses: serverless/github-action@master
         with:
           args: deploy --stage prod
+          working-directory: src/DotNetServerless.Lambda
         env:
           LOG_LEVEL: debug
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -45,6 +50,7 @@ jobs:
         uses: serverless/github-action@master
         with:
           args: deploy --stage staging
+          working-directory: src/DotNetServerless.Lambda
         env:
           LOG_LEVEL: debug
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -55,6 +61,7 @@ jobs:
         uses: serverless/github-action@master
         with:
           args: deploy --stage dev
+          working-directory: src/DotNetServerless.Lambda
         env:
           LOG_LEVEL: debug
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
